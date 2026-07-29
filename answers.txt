@@ -1,1 +1,15 @@
+THERE IS A LOT OF INFO FOR SOME OF THESE ANSWERS TO FIT IN HERE.
+NOT ADDING THE RESPONSE TO EVERYTHING.
 
+1. Get the count of users per city.
+    118 Rows    
+2. Get the count of users per city, excluding Chicago.
+    117 Rows
+3. Get the number of advertisements per date in descending order.
+
+4. Get the number of advertisements per date before February 2014, in descending order.
+    23 Rows
+5. Get the number of advertisements per month.
+
+6. What are the first names of users who placed ads in June of 2015?
+7. What are the makes of cars that Wilda Giguere advertised?
