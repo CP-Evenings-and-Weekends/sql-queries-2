@@ -1,1 +1,196 @@
+1. Get the count of users per city.
+    count |       city        
+   -------+-------------------
+        5 | New York
+        4 | Chicago
+        3 | Anchorage
+        3 | San Jose
+        3 | Milwaukee
+        2 | Fairbanks
+        2 | Newark
+        2 | Irving
+        2 | Waco
+        2 | Los Angeles
+        2 | Boston
+        2 | New Orleans
+        2 | Philadelphia
+        2 | Tullahoma
+        2 | Providence
+        2 | Baltimore
+        2 | Portland
+        2 | San Leandro
+        2 | Albany
+        2 | Honolulu
+        1 | Beloit
+        1 | Columbus
+        1 | Indianapolis
+        1 | Wellsville
+        1 | Gardena
+        1 | Thousand Oaks
+        1 | Euless
+        1 | Middle Island
+        1 | Clarks Summit
+        1 | Middleboro
+        1 | Orange
+        1 | Sioux Falls
+        1 | Pittstown
+        1 | Concord
+        1 | Chagrin Falls
+        1 | Las Cruces
+        1 | Abilene
+        1 | Brighton
+        1 | San Antonio
+        1 | Beachwood
+        1 | Absecon
+        1 | Plainfield
+        1 | Hamilton
+        1 | Prineville
+        1 | Flemington
+        1 | Huntingdon Valley
+        1 | Chapel Hill
+        1 | Laredo
+        1 | Hayward
+        1 | Middlesex
+        1 | Hackensack
+        1 | High Point
+        1 | Rock Springs
+        1 | Burlingame
+        1 | Columbia
+        1 | Phoenix
+        1 | Massapequa
+        1 | San Francisco
+        1 | Dallas
+        1 | Owings Mills
+        1 | Jacksonville
+        1 | Bronx
+        1 | Worcester
+        1 | Findlay
+        1 | Cocoa
+        1 | Dunellen
+        1 | Bridgeport
+        1 | Riverside
+        1 | Troy
+        1 | Ashland
+        1 | Boise
+        1 | Akron
+        1 | Nashville
+        1 | London
+        1 | Staten Island
+        1 | Clovis
+        1 | Oakland
+        1 | Ontario
+        1 | Camarillo
+        1 | Denver
+        1 | San Carlos
+        1 | Madison
+        1 | Hopkins
+        1 | Monroe Township
+        1 | Homestead
+        1 | Shawnee
+        1 | Aston
+        1 | Ridgefield Park
+        1 | Stevens Point
+        1 | Beverly Hills
+        1 | San Mateo
+        1 | Easton
+        1 | Kulpsville
+        1 | Preston
+        1 | Jenkintown
+        1 | Pearl City
+        1 | Westbury
+        1 | Rockaway
+        1 | Miami
+        1 | Metairie
+        1 | Conroe
+        1 | Littleton
+        1 | Overland Park
+        1 | Erie
+        1 | San Gabriel
+        1 | Lynbrook
+        1 | Glen Burnie
+        1 | Evanston
+        1 | Austin
+        1 | Taylor
+        1 | Paterson
+        1 | Mc Minnville
+        1 | Mc Lean
+        1 | Wayne
+        1 | Rockford
+        1 | Mesquite
+        1 | Burnsville
+        1 | Van Nuys
+   121 rows.
 
+   SELECT COUNT(*), city FROM UserProfile GROUP BY city ORDER BY COUNT(*) DESC;
+
+------------------------------------------------------------------------
+
+2. Get the count of users per city, excluding Chicago.
+   117 rows.
+
+   SELECT COUNT(*), city FROM UserProfile WHERE NOT city = 'Chicago' GROUP BY city ORDER BY COUNT(*) DESC;
+
+------------------------------------------------------------------------
+
+3. Get the number of advertisements per date in descending order.
+   330 rows.
+
+   SELECT COUNT(*), advertisement_date FROM Advertisement GROUP BY advertisement_date ORDER BY COUNT(*) DESC; 
+
+------------------------------------------------------------------------
+
+4. Get the number of advertisements per date before February 2014, in descending order.
+   23 rows.
+
+   SELECT COUNT(*), advertisement_date FROM Advertisement WHERE advertisement_date < '2014-02-01' GROUP BY advertisement_date ORDER BY COUNT(*) DESC;
+
+------------------------------------------------------------------------
+
+5. Get the number of advertisements per month.
+    count |   month 
+   -------+---------
+       30 |       3
+       91 |       1
+       69 |       7
+       36 |      11
+       57 |       4
+       82 |       9
+      103 |       6
+       46 |      10
+       70 |       8
+       58 |       2
+       37 |      12
+      106 |       5
+   12 rows.
+
+   SELECT COUNT(*), extract(MONTH FROM advertisement_date) FROM Advertisement GROUP BY extract(MONTH FROM advertisement_date);
+
+------------------------------------------------------------------------
+
+6. What are the first names of users who placed ads in June of 2015?
+   0 rows.
+
+   SELECT AppUser.first_name
+   FROM AppUser 
+   INNER JOIN Advertisement 
+   ON AppUser.account_id = Advertisement.seller_account_id
+   WHERE extract(MONTH FROM Advertisement.advertisement_date) = 6
+   AND extract(YEAR FROM Advertisement.advertisement_date) = 2015;
+
+------------------------------------------------------------------------
+
+7. What are the makes of cars that Wilda Giguere advertised?
+       make    
+   ------------
+    BMW
+    Opel
+    Peugeot
+    Volkswagen
+   4 rows.
+
+   SELECT DISTINCT CarModel.make
+   FROM AppUser
+   JOIN Advertisement ON AppUser.account_id = Advertisement.seller_account_id
+   JOIN Car ON Advertisement.car_id = Car.car_id
+   JOIN CarModel ON Car.car_model_id = CarModel.car_model_id
+   WHERE AppUser.first_name = 'Wilda' AND AppUser.last_name = 'Giguere';
