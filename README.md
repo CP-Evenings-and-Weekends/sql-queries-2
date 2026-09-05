@@ -17,7 +17,7 @@ Answer each of the following with a single SQL query:
 3. Get the number of advertisements per date in descending order.
 4. Get the number of advertisements per date before February 2014, in descending order.
 5. Get the number of advertisements per month.
-6. What are the first names of users who placed ads in June of 2015?
+6. What are the first names of users who placed ads in June of 2014?
 7. What are the makes of cars that Wilda Giguere advertised?
 
 > Hints:
